@@ -1,13 +1,17 @@
 {
   "name": "project",
-  "dependencies": {},
+  "type": "module",
   "devDependencies": {
-    "vite": "latest"
+    "@cloudflare/vite-plugin": "^1.54.7",
+    "vite": "latest",
+    "wrangler": "^4.131.0"
+    
   },
   "scripts": {
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
   }
 }
