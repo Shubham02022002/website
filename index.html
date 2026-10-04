@@ -29,6 +29,7 @@
       <nav class="nav">
         <a href="#work">Work</a>
         <a href="#projects">Projects</a>
+        <a href="#activity">Activity</a>
         <a href="#achievements">Achievements</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -96,6 +97,54 @@
       <section id="projects" class="section">
         <h2 class="section-title">Projects</h2>
         <div class="project-list">
+          <div class="project-item">
+            <div class="project-heading">
+              <h3>Forge Studio</h3>
+              <span class="project-links">
+                <a
+                  class="project-link"
+                  href="https://forge-studio-kappa.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >forge-studio-kappa.vercel.app ↗</a
+                >
+                <a
+                  class="project-link"
+                  href="https://github.com/Shubham02022002/forge-studio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >source ↗</a
+                >
+              </span>
+            </div>
+            <ul class="timeline-points">
+              <li>
+                Built a full-stack AI app builder: describe an app in a sentence
+                — or speak it — and it clarifies the spec, designs a blueprint,
+                generates a real Vite + React codebase, and runs it live in the
+                browser.
+              </li>
+              <li>
+                Streamed generation token-by-token over SSE from Groq models
+                (gpt-oss-20b / gpt-oss-120b) plus Whisper for voice input.
+              </li>
+              <li>
+                Executed the generated project client-side in a WebContainer —
+                a WebAssembly Node.js runtime that boots a real Vite dev server
+                inside the browser tab.
+              </li>
+              <li>
+                Proxied every browser request through a same-origin catch-all
+                route so session cookies stay first-party across the Vercel and
+                Render deployments.
+              </li>
+              <li>
+                Engineered the backend with Express 5, Prisma and PostgreSQL
+                (Neon), with Zod validation, bcrypt auth and GitHub OAuth.
+              </li>
+            </ul>
+          </div>
+
           <div class="project-item">
             <div class="project-heading">
               <h3>Paytm</h3>
@@ -271,6 +320,29 @@
               <li>A project and bug tracking tool.</li>
             </ul>
           </div>
+        </div>
+      </section>
+
+      <section id="activity" class="section">
+        <h2 class="section-title">GitHub Activity</h2>
+        <p class="lede" id="graph-total">Loading contributions…</p>
+        <div class="graph-scroll">
+          <div class="graph-months" id="graph-months"></div>
+          <div class="graph-grid" id="graph-grid"></div>
+        </div>
+        <div class="graph-footer">
+          <span id="graph-status"
+            >Contributions over the last year. Hover a day for details.</span
+          >
+          <span class="graph-legend">
+            <span>Less</span>
+            <span class="graph-day" data-level="0"></span>
+            <span class="graph-day" data-level="1"></span>
+            <span class="graph-day" data-level="2"></span>
+            <span class="graph-day" data-level="3"></span>
+            <span class="graph-day" data-level="4"></span>
+            <span>More</span>
+          </span>
         </div>
       </section>
 
