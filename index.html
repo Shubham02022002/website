@@ -22,12 +22,22 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="spotlight" id="spotlight"></div>
-
     <header class="site-header">
       <a class="brand" href="#top">Shubham<span>.</span></a>
-      <nav class="nav">
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav"
+        aria-label="Open menu"
+      >
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="nav" id="nav">
         <a href="#work">Work</a>
+        <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#activity">Activity</a>
         <a href="#achievements">Achievements</a>
@@ -43,7 +53,7 @@
         <p class="lede">
           Full Stack Developer & Cloud Infrastructure enthusiast, passionate
           about automation and building things that scale. Currently exploring
-          AI. 24, based in Agra, India.
+          AI. 24, based in India.
         </p>
         <div class="cta-row">
           <a
@@ -59,6 +69,13 @@
             target="_blank"
             rel="noopener noreferrer"
             >LinkedIn</a
+          >
+          <a
+            class="btn"
+            href="https://x.com/shellShubh"
+            target="_blank"
+            rel="noopener noreferrer"
+            >X</a
           >
         </div>
       </section>
@@ -94,10 +111,119 @@
         </div>
       </section>
 
+      <section id="skills" class="section">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills">
+          <div class="skill-row">
+            <span class="skill-label">Languages</span>
+            <span class="skill-items"
+              >JavaScript · TypeScript · C++ · C# · Python </span
+            >
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">Frontend</span>
+            <span class="skill-items">React · Vite · Tailwind CSS · MUI</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">Backend</span>
+            <span class="skill-items"
+              >Node.js · Express · REST APIs · Server-Sent Events · Prisma ·
+              Zod</span
+            >
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">Databases</span>
+            <span class="skill-items">PostgreSQL · MongoDB · Mongoose</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">Cloud &amp; Infra</span>
+            <span class="skill-items"
+              >Linux · VMware · AWS · Docker · Cloudflare Workers · Vercel ·
+              Render</span
+            >
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">AI &amp; Automation</span>
+            <span class="skill-items"
+              >Agentic AI · LLM Tool-Use · Prompt Engineering · Groq · Whisper · Claude · 
+              Google AI Studio</span
+            >
+          </div>
+        </div>
+      </section>
+
       <section id="projects" class="section">
         <h2 class="section-title">Projects</h2>
-        <div class="project-list">
-          <div class="project-item">
+
+        <div class="deck" role="tablist" aria-label="Projects" style="--mid: 1.5">
+          <button
+            class="deck-card"
+            type="button"
+            role="tab"
+            id="tab-forge"
+            aria-controls="panel-forge"
+            aria-selected="true"
+            tabindex="0"
+            style="--i: 0"
+          >
+            <span class="deck-index">01</span>
+            <span class="deck-title">Forge Studio</span>
+            <span class="deck-stack">React · Express · Prisma</span>
+          </button>
+          <button
+            class="deck-card"
+            type="button"
+            role="tab"
+            id="tab-paytm"
+            aria-controls="panel-paytm"
+            aria-selected="false"
+            tabindex="-1"
+            style="--i: 1"
+          >
+            <span class="deck-index">02</span>
+            <span class="deck-title">Paytm</span>
+            <span class="deck-stack">MERN · JWT · Mongoose</span>
+          </button>
+          <button
+            class="deck-card"
+            type="button"
+            role="tab"
+            id="tab-mirromind"
+            aria-controls="panel-mirromind"
+            aria-selected="false"
+            tabindex="-1"
+            style="--i: 2"
+          >
+            <span class="deck-index">03</span>
+            <span class="deck-title">MirroMind</span>
+            <span class="deck-stack">React Native · REST · STT / TTS</span>
+          </button>
+          <button
+            class="deck-card"
+            type="button"
+            role="tab"
+            id="tab-strength"
+            aria-controls="panel-strength"
+            aria-selected="false"
+            tabindex="-1"
+            style="--i: 3"
+          >
+            <span class="deck-index">04</span>
+            <span class="deck-title">Strength Studio</span>
+            <span class="deck-stack">React · MUI · Rollup</span>
+          </button>
+        </div>
+
+        <p class="deck-hint">Select a card to read the details.</p>
+
+        <div class="project-panels">
+          <article
+            class="project-panel"
+            id="panel-forge"
+            role="tabpanel"
+            aria-labelledby="tab-forge"
+            tabindex="0"
+          >
             <div class="project-heading">
               <h3>Forge Studio</h3>
               <span class="project-links">
@@ -143,9 +269,16 @@
                 (Neon), with Zod validation, bcrypt auth and GitHub OAuth.
               </li>
             </ul>
-          </div>
+          </article>
 
-          <div class="project-item">
+          <article
+            class="project-panel"
+            id="panel-paytm"
+            role="tabpanel"
+            aria-labelledby="tab-paytm"
+            tabindex="0"
+            hidden
+          >
             <div class="project-heading">
               <h3>Paytm</h3>
               <a
@@ -178,9 +311,16 @@
                 migrating the codebase to TypeScript.
               </li>
             </ul>
-          </div>
+          </article>
 
-          <div class="project-item">
+          <article
+            class="project-panel"
+            id="panel-mirromind"
+            role="tabpanel"
+            aria-labelledby="tab-mirromind"
+            tabindex="0"
+            hidden
+          >
             <div class="project-heading">
               <h3>MirroMind</h3>
             </div>
@@ -203,65 +343,16 @@
                 seamless voice interaction.
               </li>
             </ul>
-          </div>
+          </article>
 
-          <div class="project-item">
-            <div class="project-heading">
-              <h3>SWALT</h3>
-              <a
-                class="project-link"
-                href="https://wallet-generator-phi.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >wallet-generator-phi.vercel.app ↗</a
-              >
-            </div>
-            <ul class="timeline-points">
-              <li>
-                Developed a hierarchical deterministic (HD) wallet using seed
-                phrases and mnemonics, generating multiple wallets from a single
-                seed.
-              </li>
-              <li>
-                Integrated private and public key pair generation for each
-                wallet, ensuring secure transactions on Ethereum and Solana
-                blockchains.
-              </li>
-              <li>
-                Utilized key cryptographic libraries such as ethers, bip39,
-                bs58, tweetnacl, and ed25519-hd-key for robust wallet management
-                and encryption.
-              </li>
-              <li>
-                Implemented secure wallet interactions and transaction
-                functionalities, optimizing for scalability and user-friendly
-                design.
-              </li>
-            </ul>
-          </div>
-
-          <div class="project-item">
-            <div class="project-heading">
-              <h3>Hudini</h3>
-              <a
-                class="project-link"
-                href="https://hudini.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >hudini.vercel.app ↗</a
-              >
-            </div>
-            <ul class="timeline-points">
-              <li>
-                Built a PaaS landing page for hudini.io with React and MUI,
-                including a dark theme addition. Hudini provides AI-driven
-                solutions for end clients.
-              </li>
-              <li>Deployed the frontend using Vercel.</li>
-            </ul>
-          </div>
-
-          <div class="project-item">
+          <article
+            class="project-panel"
+            id="panel-strength"
+            role="tabpanel"
+            aria-labelledby="tab-strength"
+            tabindex="0"
+            hidden
+          >
             <div class="project-heading">
               <h3>Strength Studio</h3>
               <a
@@ -287,39 +378,7 @@
                 handling customer queries.
               </li>
             </ul>
-          </div>
-
-          <div class="project-item">
-            <div class="project-heading">
-              <h3>HSPL</h3>
-              <a
-                class="project-link"
-                href="https://hspl-tan.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                >hspl-tan.vercel.app ↗</a
-              >
-            </div>
-            <ul class="timeline-points">
-              <li>A website clone for a leading drone company in India.</li>
-            </ul>
-          </div>
-
-          <div class="project-item">
-            <div class="project-heading">
-              <h3>Issue Tracker</h3>
-              <a
-                class="project-link"
-                href="https://github.com/Shubham02022002/Issue-Tracker"
-                target="_blank"
-                rel="noopener noreferrer"
-                >github.com/Shubham02022002/Issue-Tracker ↗</a
-              >
-            </div>
-            <ul class="timeline-points">
-              <li>A project and bug tracking tool.</li>
-            </ul>
-          </div>
+          </article>
         </div>
       </section>
 

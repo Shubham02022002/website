@@ -1,9 +1,73 @@
-const spotlight = document.getElementById("spotlight");
+const navToggle = document.querySelector(".nav-toggle");
+const nav = document.getElementById("nav");
 
-if (spotlight) {
-  window.addEventListener("pointermove", (event) => {
-    spotlight.style.setProperty("--x", event.clientX + "px");
-    spotlight.style.setProperty("--y", event.clientY + "px");
+if (navToggle && nav) {
+  const setNavOpen = (open) => {
+    navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    nav.classList.toggle("is-open", open);
+  };
+
+  navToggle.addEventListener("click", () => {
+    setNavOpen(navToggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  nav.addEventListener("click", (event) => {
+    if (event.target.closest("a")) setNavOpen(false);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setNavOpen(false);
+  });
+
+  const wide = window.matchMedia("(min-width: 640px)");
+  wide.addEventListener("change", (event) => {
+    if (event.matches) setNavOpen(false);
+  });
+}
+
+const deck = document.querySelector(".deck");
+const deckTabs = deck ? Array.from(deck.querySelectorAll(".deck-card")) : [];
+
+function selectProject(tab, focus = false) {
+  for (const other of deckTabs) {
+    const panel = document.getElementById(other.getAttribute("aria-controls"));
+    const selected = other === tab;
+
+    other.setAttribute("aria-selected", String(selected));
+    other.tabIndex = selected ? 0 : -1;
+    if (panel) panel.hidden = !selected;
+  }
+
+  if (focus) tab.focus();
+}
+
+for (const [index, tab] of deckTabs.entries()) {
+  tab.addEventListener("click", () => selectProject(tab));
+
+  tab.addEventListener("keydown", (event) => {
+    const last = deckTabs.length - 1;
+    let next;
+
+    switch (event.key) {
+      case "ArrowRight":
+        next = (index + 1) % deckTabs.length;
+        break;
+      case "ArrowLeft":
+        next = (index + last) % deckTabs.length;
+        break;
+      case "Home":
+        next = 0;
+        break;
+      case "End":
+        next = last;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    selectProject(deckTabs[next], true);
   });
 }
 

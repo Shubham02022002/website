@@ -24,19 +24,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.spotlight {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(
-    600px circle at var(--x, 50%) var(--y, 20%),
-    rgba(255, 255, 255, 0.06),
-    transparent 60%
-  );
-  transition: background 0.2s ease;
-}
-
 a {
   color: var(--text);
   text-decoration: none;
@@ -71,6 +58,8 @@ ul {
 .nav {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 24px;
 }
 
@@ -82,6 +71,52 @@ ul {
 
 .nav a:hover {
   color: var(--text);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0 10px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.nav-toggle:hover {
+  border-color: #3a3a3a;
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid #4a4a4a;
+  outline-offset: 2px;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--text);
+  transition: transform 0.2s ease, opacity 0.15s ease;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
 }
 
 main {
@@ -231,13 +266,124 @@ main {
   background: var(--text-muted);
 }
 
-.project-list {
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.skill-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skill-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.skill-items {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.deck {
+  --card: 200px;
+  --step: 124px;
+  --tilt: 3.5deg;
+  display: grid;
+  place-items: center;
+  padding: 20px 0 8px;
+}
+
+.deck:hover {
+  --step: 138px;
+  --tilt: 4.25deg;
+}
+
+.deck-card {
+  grid-area: 1 / 1;
+  z-index: 1;
+  width: var(--card);
+  aspect-ratio: 4 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 14px 16px;
+  font: inherit;
+  text-align: left;
+  color: var(--text);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: linear-gradient(160deg, #1b1b1b, #101010);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+  transform: translateX(calc((var(--i) - var(--mid)) * var(--step)))
+    rotate(calc((var(--i) - var(--mid)) * var(--tilt)));
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    translate 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.2s ease;
+}
+
+.deck-card[aria-selected='true'] {
+  z-index: 20;
+  border-color: #5a5a5a;
+  background: linear-gradient(160deg, #242424, #141414);
+}
+
+.deck-card:hover,
+.deck-card:focus-visible {
+  translate: 0 -16px;
+  z-index: 30;
+  border-color: #4a4a4a;
+  outline: none;
+}
+
+.deck-card:focus-visible {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 0 2px var(--bg),
+    0 0 0 3px #6a6a6a;
+}
+
+.deck-index {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.deck-title {
+  margin-top: auto;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.deck-stack {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.deck-hint {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 20px 0 32px;
+}
+
+.project-panels {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-.project-item {
+.project-panel {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -245,11 +391,37 @@ main {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--bg-elevated);
-  transition: border-color 0.15s ease;
+  animation: panel-in 0.35s ease both;
 }
 
-.project-item:hover {
-  border-color: #3a3a3a;
+.project-panel[hidden] {
+  display: none;
+}
+
+.project-panel:focus-visible {
+  outline: 2px solid #4a4a4a;
+  outline-offset: 2px;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-card {
+    transition: none;
+  }
+
+  .project-panel {
+    animation: none;
+  }
 }
 
 .project-heading {
@@ -398,6 +570,18 @@ main {
   color: var(--text-muted);
 }
 
+@media (min-width: 520px) {
+  .skill-row {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .skill-label {
+    width: 160px;
+    flex-shrink: 0;
+  }
+}
+
 @media (max-width: 560px) {
   .hero {
     padding: 72px 0 56px;
@@ -409,12 +593,6 @@ main {
 
   .site-header {
     padding-top: 24px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .nav {
-    gap: 14px;
   }
 
   .project-heading {
@@ -425,5 +603,90 @@ main {
   .graph-scroll {
     --cell: 8px;
     --gap: 2px;
+  }
+}
+
+@media (max-width: 899px) {
+  .deck {
+    --card: 168px;
+    --step: 104px;
+  }
+
+  .deck:hover {
+    --step: 116px;
+  }
+}
+
+/* Below this the four cards cannot fan without burying each other,
+   so they become a plain two-column grid of fully visible cards. */
+@media (max-width: 639px) {
+  .deck {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    place-items: stretch;
+    gap: 12px;
+    padding: 0;
+  }
+
+  .deck-card,
+  .deck-card:hover,
+  .deck-card:focus-visible {
+    grid-area: auto;
+    width: auto;
+    translate: none;
+    transform: none;
+  }
+
+  .deck-card:hover,
+  .deck-card:focus-visible {
+    translate: 0 -2px;
+  }
+
+  .deck-card[aria-selected='true'] {
+    box-shadow: 0 0 0 1px #5a5a5a, 0 8px 20px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* Mobile: the section nav collapses behind a toggle button.
+   The header is lifted above main so the panel can overlay the page. */
+@media (max-width: 639px) {
+  .site-header {
+    z-index: 2;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 24px;
+    right: 24px;
+    display: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 8px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  .nav.is-open {
+    display: flex;
+  }
+
+  .nav a {
+    padding: 12px 10px;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .nav a:hover {
+    background: #1a1a1a;
   }
 }
