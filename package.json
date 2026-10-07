@@ -1,17 +1,28 @@
 {
-  "name": "project",
+  "name": "portfolio",
   "type": "module",
+  "private": true,
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.54.7",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
     "vite": "latest",
     "wrangler": "^4.131.0"
-    
   },
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build",
     "preview": "npm run build && wrangler dev",
     "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   }
 }
