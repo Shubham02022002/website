@@ -1,0 +1,143 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Monochrome palette lifted from the original stylesheet. */
+  --color-canvas: #0a0a0a;
+  --color-surface: #121212;
+  --color-hairline: #232323;
+  --color-ink: #f2f2f2;
+  --color-muted: #9a9a9a;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --container-page: 720px;
+
+  /* Named to match the original media queries. The odd 561/640/900 values keep
+     the generated `max-*` variants (< n) identical to the old `max-width: n-1`. */
+  --breakpoint-mid: 520px;
+  --breakpoint-narrow: 561px;
+  --breakpoint-nav: 640px;
+  --breakpoint-wide: 900px;
+
+  --animate-panel-in: panel-in 0.35s ease both;
+
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* The deck is the one piece that is genuinely parametric: every card's position
+   is a function of its index against the deck's shared --mid/--step/--tilt, and
+   the whole fan re-flows from those vars on hover and at two breakpoints.
+   Expressing that as utility classes would mean unreadable calc() arbitrary
+   values, so it lives here and everything inside the card stays Tailwind. */
+@layer components {
+  .deck {
+    --card: 200px;
+    --step: 124px;
+    --tilt: 3.5deg;
+    display: grid;
+    place-items: center;
+    padding: 20px 0 8px;
+  }
+
+  .deck:hover {
+    --step: 138px;
+    --tilt: 4.25deg;
+  }
+
+  .deck-card {
+    grid-area: 1 / 1;
+    z-index: 1;
+    width: var(--card);
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+    transform: translateX(calc((var(--i) - var(--mid)) * var(--step)))
+      rotate(calc((var(--i) - var(--mid)) * var(--tilt)));
+    transition:
+      transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+      translate 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 0.2s ease;
+  }
+
+  .deck-card[aria-selected='true'] {
+    z-index: 20;
+  }
+
+  .deck-card:hover,
+  .deck-card:focus-visible {
+    translate: 0 -16px;
+    z-index: 30;
+  }
+
+  .deck-card:focus-visible {
+    box-shadow:
+      0 12px 28px rgba(0, 0, 0, 0.55),
+      0 0 0 2px var(--color-canvas),
+      0 0 0 3px #6a6a6a;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .deck-card {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 899px) {
+    .deck {
+      --card: 168px;
+      --step: 104px;
+    }
+
+    .deck:hover {
+      --step: 116px;
+    }
+  }
+
+  /* Below this the four cards cannot fan without burying each other,
+     so they become a plain two-column grid of fully visible cards. */
+  @media (max-width: 639px) {
+    .deck {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      place-items: stretch;
+      gap: 12px;
+      padding: 0;
+    }
+
+    .deck-card,
+    .deck-card:hover,
+    .deck-card:focus-visible {
+      grid-area: auto;
+      width: auto;
+      translate: none;
+      transform: none;
+    }
+
+    .deck-card:hover,
+    .deck-card:focus-visible {
+      translate: 0 -2px;
+    }
+
+    /* With the fan flattened, the border alone is too quiet a selection cue. */
+    .deck-card[aria-selected='true'] {
+      box-shadow: 0 0 0 1px #5a5a5a, 0 8px 20px rgba(0, 0, 0, 0.45);
+    }
+  }
+}
