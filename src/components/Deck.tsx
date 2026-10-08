@@ -34,7 +34,6 @@ export function Deck({ projects, active, onSelect }: Props) {
 
     event.preventDefault()
     onSelect(next)
-    // Every card is mounted, so the target tab is already focusable.
     tabRefs.current[next]?.focus()
   }
 
@@ -43,7 +42,6 @@ export function Deck({ projects, active, onSelect }: Props) {
       className="deck"
       role="tablist"
       aria-label="Projects"
-      // The fan is symmetric around the middle card.
       style={{ '--mid': (projects.length - 1) / 2 } as CSSProperties}
     >
       {projects.map((project, index) => {
@@ -63,14 +61,16 @@ export function Deck({ projects, active, onSelect }: Props) {
             tabIndex={selected ? 0 : -1}
             onClick={() => onSelect(index)}
             onKeyDown={(event) => onKeyDown(event, index)}
-            style={{ '--i': index } as CSSProperties}
+            style={
+              {
+                '--i': index,
+                '--photo': `url("${project.image}")`,
+              } as CSSProperties
+            }
             className={cx(
               'deck-card flex cursor-pointer flex-col items-start rounded-xl border px-4 py-3.5 text-left text-ink',
-              'bg-[linear-gradient(160deg,#1b1b1b,#101010)]',
               'hover:border-[#4a4a4a] focus-visible:border-[#4a4a4a] focus-visible:outline-none',
-              selected
-                ? 'border-[#5a5a5a] bg-[linear-gradient(160deg,#242424,#141414)]'
-                : 'border-hairline'
+              selected ? 'border-[#5a5a5a]' : 'border-hairline'
             )}
           >
             <span className="font-mono text-[11px] text-muted">

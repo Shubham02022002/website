@@ -12,7 +12,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <main className="relative z-[1] mx-auto max-w-page px-6">
+      <main className="relative z-1 mx-auto max-w-page px-6">
         <Hero />
         <Work />
         <Skills />

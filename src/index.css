@@ -68,6 +68,14 @@
     z-index: 1;
     width: var(--card);
     aspect-ratio: 4 / 3;
+    /* The card gradient doubles as a scrim so the label stays legible over the
+       photo. Both layers live here rather than as utilities because an inline
+       backgroundImage would otherwise override and drop the scrim. */
+    background-image:
+      linear-gradient(160deg, rgba(27, 27, 27, 0.5), rgba(10, 10, 10, 0.85)),
+      var(--photo);
+    background-size: cover;
+    background-position: center;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
     transform: translateX(calc((var(--i) - var(--mid)) * var(--step)))
       rotate(calc((var(--i) - var(--mid)) * var(--tilt)));
@@ -79,6 +87,11 @@
 
   .deck-card[aria-selected='true'] {
     z-index: 20;
+    /* Thinner scrim = the photo reads brighter, preserving the original
+       "selected is the lighter card" cue. */
+    background-image:
+      linear-gradient(160deg, rgba(48, 48, 48, 0.32), rgba(16, 16, 16, 0.75)),
+      var(--photo);
   }
 
   .deck-card:hover,

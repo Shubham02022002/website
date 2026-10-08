@@ -5,6 +5,7 @@ export const PROJECTS: Project[] = [
     id: 'forge',
     title: 'Forge Studio',
     stack: 'Next.js · Express · Prisma',
+    image: '/forgeStudio.png',
     links: [
       {
         label: 'forge-studio-kappa.vercel.app ↗',
@@ -27,6 +28,7 @@ export const PROJECTS: Project[] = [
     id: 'paytm',
     title: 'Paytm',
     stack: 'MERN · JWT · Mongoose',
+    image: '/paytm.png',
     links: [
       {
         label: 'paytmfintech.vercel.app ↗',
@@ -45,6 +47,7 @@ export const PROJECTS: Project[] = [
     id: 'mirromind',
     title: 'MirroMind',
     stack: 'React Native · REST · STT / TTS',
+    image: '/mirrorMind.png',
     links: [],
     points: [
       'Developing a voice-enabled system to create a context-aware digital replica using historical conversation data.',
@@ -58,6 +61,7 @@ export const PROJECTS: Project[] = [
     id: 'strength',
     title: 'Strength Studio',
     stack: 'React · MUI · Rollup',
+    image: '/strengthStudio.png',
     links: [
       {
         label: 'strength-studio-gamma.vercel.app ↗',

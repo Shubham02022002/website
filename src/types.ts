@@ -8,6 +8,8 @@ export type Project = {
   id: string
   title: string
   stack: string
+  /** Cover image on the deck card. Served from `public/`, so the path starts at `/`. */
+  image: string
   links: LinkItem[]
   points: string[]
 }
