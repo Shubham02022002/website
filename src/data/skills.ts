@@ -1,30 +1,30 @@
-import type { SkillGroup } from '../types'
+import type { SkillGroup } from "../types";
 
 export const SKILLS: SkillGroup[] = [
   {
-    label: 'Languages',
-    items: 'JavaScript · TypeScript · C++ · C# · Python',
-  },
-  {
-    label: 'Frontend',
-    items: 'React · Vite · Tailwind CSS · MUI',
-  },
-  {
-    label: 'Backend',
-    items: 'Node.js · Express · REST APIs · Server-Sent Events · Prisma · Zod',
-  },
-  {
-    label: 'Databases',
-    items: 'PostgreSQL · MongoDB · Mongoose',
-  },
-  {
-    label: 'Cloud & Infra',
+    label: "AI",
     items:
-      'Linux · VMware · AWS · Docker · Cloudflare Workers · Vercel · Render',
+      "Agentic AI · LLM Tool-Use/Function Calling · Groq · Whisper · Claude · Google AI Studio · Agent Evaluation(Evals)",
   },
   {
-    label: 'AI & Automation',
-    items:
-      'Agentic AI · LLM Tool-Use · Prompt Engineering · Groq · Whisper · Claude · Google AI Studio',
+    label: "Languages",
+    items: "JavaScript · TypeScript · C++ · Python",
   },
-]
+  {
+    label: "Frontend",
+    items: "Next · React · Vite · Tailwind CSS · MUI",
+  },
+  {
+    label: "Backend",
+    items: "Node.js · Express · REST APIs · Server-Sent Events · Prisma · Zod",
+  },
+  {
+    label: "Databases",
+    items: "PostgreSQL · MongoDB · Mongoose · Redis",
+  },
+  {
+    label: "Cloud & Infra",
+    items:
+      "Linux · AWS · Docker · Cloudflare Workers · Vercel · Render · CI/CD · Turborepo",
+  },
+];
